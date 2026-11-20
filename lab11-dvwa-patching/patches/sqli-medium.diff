@@ -1,0 +1,12 @@
+# DVWA v1.10, vulnerabilities/sqli/source/medium.php
+# Transcribed from my report screenshot. Context lines are DVWA's code.
+# Change: the value is used unquoted in the query, so escaping does not help.
+# Cast it to an integer instead.
+
+     $id = $_POST[ 'id' ];
+
+     $id = mysqli_real_escape_string($GLOBALS["___mysqli_ston"], $id);
++    // MY FIX ----------
++    $id = (int) $_POST['id'];
++    // MY FIX ---------- ABOVE
+     $query  = "SELECT first_name, last_name FROM users WHERE user_id = $id;";

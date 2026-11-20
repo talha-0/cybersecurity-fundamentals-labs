@@ -1,0 +1,20 @@
+# DVWA v1.10, vulnerabilities/exec/source/medium.php
+# Transcribed from my report screenshots (before and after). Context lines are DVWA's code.
+# Change: drop the two-entry blacklist and validate the input as an IP address.
+
+     // Get input
+     $target = $_REQUEST[ 'ip' ];
+
+-    // Set blacklist
+-    $substitutions = array(
+-        '&&' => '',
+-        ';'  => '',
+-    );
+-
+-    // Remove any of the charactars in the array (blacklist).
+-    $target = str_replace( array_keys( $substitutions ), $substitutions, $target );
++    if (!filter_var($target, FILTER_VALIDATE_IP)) {
++        die('<pre>Invalid IP address</pre>');
++    }
+
+     // Determine OS and execute the ping command.

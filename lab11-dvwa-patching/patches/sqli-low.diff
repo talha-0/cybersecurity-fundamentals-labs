@@ -1,0 +1,9 @@
+# DVWA v1.10, vulnerabilities/sqli/source/low.php
+# Transcribed from my report screenshot. Context lines are DVWA's code.
+# Change: escape the request value before it goes into the quoted query string.
+
+     // Get input
+     $id = $_REQUEST[ 'id' ];
++    $id = mysqli_real_escape_string($GLOBALS["___mysqli_ston"], $id);
+     // Check database
+     $query  = "SELECT first_name, last_name FROM users WHERE user_id = '$id';";

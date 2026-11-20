@@ -1,0 +1,11 @@
+# DVWA v1.10, vulnerabilities/sqli/source/high.php
+# Transcribed from my report screenshot. Context lines are DVWA's code.
+# Change: cast the session value to an integer before it reaches the query.
+
+ if( isset( $_SESSION [ 'id' ] ) ) {
+     // Get input
+-    $id = $_SESSION[ 'id' ];
++    $id = (int)$_SESSION[ 'id' ];
+
+     // Check database
+     $query  = "SELECT first_name, last_name FROM users WHERE user_id = '$id' LIMIT 1;";

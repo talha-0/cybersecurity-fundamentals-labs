@@ -1,0 +1,11 @@
+# DVWA v1.10, vulnerabilities/exec/source/high.php
+# Transcribed from my report screenshots (before and after). Context lines are DVWA's code.
+# Change: the pipe entry in the blacklist had a trailing space, so "|" with no
+# space after it was never removed. Remove the space.
+
+     $substitutions = array(
+         '&'  => '',
+         ';'  => '',
+-        '| ' => '',
++        '|' => '',
+         '-'  => '',
